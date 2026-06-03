@@ -3,7 +3,8 @@ from scipy.stats import binom
 def agent_challenges(current_fv, current_m, agent_dice, total_dice):
     return False
 
-def agent_bid(current_fv, current_m, agent_dice, total_dice):
+def agent_bid(current_fv, current_m, agent_dice=1, total_dice=2):
+    ## calculation is meaningless untill i pass the real parameters in games
     # how many matches the agent can directly observe
     observed = agent_dice.count(current_fv)
     
