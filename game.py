@@ -37,7 +37,8 @@ while remaining_dices[1] > 0 and remaining_dices[2] > 0:
             current_bidder = 2
 
         if current_bidder == 2:
-            if agent_challenges(current_fv, current_m):
+            if agent_challenges(current_fv, current_m, d2, total_dice):
+                print("CPU challenges bid")
                 matches = d1.count(current_fv) + d2.count(current_fv)
                 print(f"\nDice revealed — Player 1: {d1} | CPU: {d2}")
                 print(f"{matches} dice show {current_fv}. Bid was {current_m}.")
@@ -49,7 +50,7 @@ while remaining_dices[1] > 0 and remaining_dices[2] > 0:
                     remaining_dices[1] -= 1
                 break
             else:
-                new_fv, new_m = agent_bid(current_fv, current_m)
+                new_fv, new_m = agent_bid(current_fv, current_m,d2,total_dice)
                 print(f"CPU raises to {new_m} dices showing {new_fv}")
                 current_fv, current_m = new_fv, new_m
                 current_bidder = 1
