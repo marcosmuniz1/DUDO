@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DUDO</title>
+</head>
+<body>
+
+  <h1>DUDO</h1>
+
+  <div id="status"></div>
+  <div id="dice"></div>
+  <div id="actions"></div>
+
+  <button onclick="newGame()">New Game</button>
+
+  <div id="bid-form">
+    <input type="number" id="fv-input" placeholder="face value (1-6)" min="1" max="6">
+    <input type="number" id="m-input" placeholder="matches">
+    <button onclick="placeBid()">Bid</button>
+  </div>
+
+  <script>
+    function newGame() {
+      fetch("/new", { method: "POST" })
+        .then(r => r.json())
+        .then(data => {
+          document.getElementById("status").innerHTML = 
+            `Round ${data.round} | Your dice: ${data.remaining_dices[1]} | CPU dice: ${data.remaining_dices[2]}`
+          document.getElementById("dice").innerHTML = 
+            `Your roll: ${data.your_dice.join(", ")}`
+        })
+    }
+
+    function placeBid() {
+      const fv = parseInt(document.getElementById("fv-input").value)
+      const m = parseInt(document.getElementById("m-input").value)
+
+      fetch("/bid", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fv: fv, m: m })
+      })
+        .then(r => r.json())
+        .then(data => {
+          console.log(data)
+        })
+    }
+  </script>
+
+</body>
+</html>
