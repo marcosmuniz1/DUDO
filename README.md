@@ -1,9 +1,11 @@
 ## DUDO Simulator
 
-Work in progress - missing UI interface ----
+Work in progress, UI needs testing
 
 
 Game Overview
+
+
 A turn-based dice bidding game in which players make escalating claims about the total number of dice showing a given face value across all players. Each bid must be strictly higher than the previous, either by increasing the quantity, the face value, or both. A round end when a bid is challenged, with the loser surrendering a dice
 
 Agent Bidding Logic
