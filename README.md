@@ -10,6 +10,8 @@ Game Overview
 A turn-based dice bidding game in which players make escalating claims about the total number of dice showing a given face value across all players. Each bid must be strictly higher than the previous, either by increasing the quantity, the face value, or both. A round end when a bid is challenged, with the loser surrendering a dice
 
 Agent Bidding Logic
+
+
 The agent uses a probabilistic strategy to select the best available bid. On its turn it:
 
 * Builds a bid universe — considers all face values (1–6) paired with quantities of current_m and current_m + 1, filtering to only those that legally exceed the current bid.
