@@ -2,7 +2,7 @@
 
 Work in progress, UI needs testing
 
-![alt text](image.png)
+![alt text](image-1.png)
 
 Game Overview
 
