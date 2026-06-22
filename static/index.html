@@ -16,13 +16,36 @@
       padding: 56px 24px 80px;
     }
 
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
     h1 {
       font-family: 'Futura', 'Century Gothic', 'AppleGothic', sans-serif;
-      font-size: clamp(72px, 18vw, 120px);
+      font-size: clamp(48px, 12vw, 80px);
       font-weight: 700;
       letter-spacing: 0.1em;
       line-height: 1;
       color: #000;
+    }
+
+    .die-icon {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .label-plain {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: #555;
+      display: block;
+      margin-bottom: 8px;
     }
 
     .title-rule {
@@ -146,7 +169,17 @@
 </head>
 <body>
 
-  <h1>DUDO</h1>
+  <div class="title-row">
+    <h1>DUDO</h1>
+    <svg class="die-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="56" height="56" rx="9" fill="none" stroke="#000" stroke-width="3"/>
+      <circle cx="16" cy="16" r="4.5" fill="#000"/>
+      <circle cx="44" cy="16" r="4.5" fill="#000"/>
+      <circle cx="30" cy="30" r="4.5" fill="#000"/>
+      <circle cx="16" cy="44" r="4.5" fill="#000"/>
+      <circle cx="44" cy="44" r="4.5" fill="#000"/>
+    </svg>
+  </div>
   <div class="title-rule"></div>
 
   <div class="game">
@@ -164,14 +197,14 @@
     </div>
 
     <div class="panel" id="bid-form">
-      <span class="label">Your Bid</span>
+      <span class="label-plain">Your Bid</span>
       <div class="bid-fields">
         <div class="field">
-          <label class="label" for="fv-input">Face Value</label>
+          <label class="label-plain" for="fv-input">Face Value</label>
           <input type="number" id="fv-input" placeholder="1 – 6" min="1" max="6">
         </div>
         <div class="field">
-          <label class="label" for="m-input">Matches</label>
+          <label class="label-plain" for="m-input">Matches</label>
           <input type="number" id="m-input" placeholder="qty">
         </div>
         <button id="bid-btn" onclick="placeBid()">Bid</button>
