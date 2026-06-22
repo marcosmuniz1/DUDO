@@ -207,7 +207,7 @@
           <label class="label-plain" for="m-input">Matches</label>
           <input type="number" id="m-input" placeholder="qty">
         </div>
-        <button id="bid-btn" onclick="placeBid()">Bid</button>
+        <button id="bid-btn" type="button" onclick="placeBid()">Bid</button>
       </div>
     </div>
 
@@ -216,14 +216,18 @@
   </div>
 
   <script>
+    let round = 0
+
     function newGame() {
       fetch("/new", { method: "POST" })
         .then(r => r.json())
         .then(data => {
+          round = data.round
           document.getElementById("status").innerHTML =
-            `Round ${data.round} &nbsp;·&nbsp; Your dice: ${data.remaining_dices[1]} &nbsp;·&nbsp; CPU dice: ${data.remaining_dices[2]}`
+            `Round ${round} &nbsp;·&nbsp; Your dice: ${data.remaining_dices[1]} &nbsp;·&nbsp; CPU dice: ${data.remaining_dices[2]}`
           document.getElementById("dice").innerHTML =
             data.your_dice.join("  ·  ")
+          document.getElementById("actions").innerHTML = ""
         })
     }
 
@@ -237,7 +241,24 @@
       })
         .then(r => r.json())
         .then(data => {
-          console.log(data)
+          if (data.error) {
+            document.getElementById("actions").innerHTML = data.error
+            return
+          }
+          if (data.cpu_action === "bid") {
+            document.getElementById("actions").innerHTML =
+              `CPU bids: ${data.m} × ${data.fv}`
+          }
+          if (data.cpu_action === "challenge") {
+            document.getElementById("actions").innerHTML =
+              `CPU challenged! There were ${data.matches} matches. ` +
+              `Bid was ${data.bid_valid ? "valid" : "invalid"}. Player ${data.loser} loses a die.`
+            document.getElementById("status").innerHTML =
+              `Round ${round} &nbsp;·&nbsp; Your dice: ${data.remaining_dices[1]} &nbsp;·&nbsp; CPU dice: ${data.remaining_dices[2]}`
+          }
+        })
+        .catch(err => {
+          document.getElementById("actions").innerHTML = "Error: " + err.message
         })
     }
   </script>
